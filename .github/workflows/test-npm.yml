@@ -1,0 +1,39 @@
+name: Install on various platforms and run
+on:
+  push:
+    branches:
+      - main
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm uninstall -g @infisearch/cli
+      - run: npm unlink @infisearch/cli
+      - run: npm install
+      - run: npm link
+      - run: infisearch test/source test/output
+  cd:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm install -g @infisearch/cli
+      - run: infisearch test/source test/output

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
+const { execSync } = require('child_process');
 
 function resolveBinaryName() {
     switch (process.platform) {
@@ -15,10 +16,23 @@ function resolveBinaryName() {
 }
 
 const binaryPath = path.join(__dirname, 'binaries', resolveBinaryName());
+if (!fs.existsSync(binaryPath)) {
+    // Maybe antivirus removed it or similar
+    console.error('ERROR: Could not find binary ' + binaryPath);
+    process.exit(1);
+}
+
 try {
-    execFileSync(binaryPath, process.argv.slice(2), {
+    if (['darwin', 'linux'].includes(process.platform)) {
+        execSync(`chmod +x ${binaryPath}`, { stdio: 'inherit' });
+    }
+
+    const command = binaryPath + ' ' + process.argv.slice(2).join(' ');
+    execSync(command, {
+        env: { ...process.env },
         stdio: 'inherit',
     });
-} catch (_ex) {
-    process.exit(1);
+} catch (ex) {
+    console.error('ERROR: Failed to run infisearch npm wrapper!\n' + ex);
+    throw ex;
 }
