@@ -1,0 +1,25 @@
+{
+  "name": "@infisearch/cli",
+  "version": "0.8.6-beta.0",
+  "description": "Npm CLI wrapper for InfiSearch",
+  "bin": {
+    "infisearch": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ang-zeyu/infisearch.git"
+  },
+  "keywords": [
+    "search",
+    "rust",
+    "wasm",
+    "static-site",
+    "jamstack"
+  ],
+  "author": "Ang Ze Yu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ang-zeyu/infisearch/issues"
+  },
+  "homepage": "https://github.com/ang-zeyu/infisearch#readme"
+}
