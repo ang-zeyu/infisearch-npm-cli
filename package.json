@@ -1,6 +1,6 @@
 {
   "name": "@infisearch/cli",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "Npm CLI wrapper for InfiSearch",
   "bin": {
     "infisearch": "./index.js"
